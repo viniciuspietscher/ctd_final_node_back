@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-    required: [true, "Provide a user type"],
+    // required: [true, "Provide a user type"],
     enum: ["petsitter", "customer"],
   },
 })
