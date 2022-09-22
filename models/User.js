@@ -23,28 +23,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Provide a password"],
     minLength: 8,
+    // Minimum 8 characters
+    // At least 1 upper case English letter
+    // At least 1 lower case English letter
+    // At least 1 letter
+    // At least 1 special character
     // match: [
     //   /^\S*(?=\S{8,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/,
     //   "Provide a strong password",
     // ],
   },
-  // phone: {
-  //   type: String,
-  //   required: function () {
-  //     return this.userType === "customer"
-  //   },
-  // },
-  // address: {
-  //   type: String,
-  //   required: function () {
-  //     return this.userType === "customer"
-  //   },
-  // },
-  // userType: {
-  //   type: String,
-  //   // required: [true, "Provide a user type"],
-  //   enum: ["petsitter", "customer"],
-  // },
 })
 
 UserSchema.pre("save", async function (next) {

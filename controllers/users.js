@@ -32,7 +32,13 @@ const login = async (req, res) => {
   if (!user) {
     throw new Unauthorized("User not found")
   }
-  // res.status(200).json({ msg: "user logged in" })
+
+  const isPasswordMatch = await user.comparePassword(password)
+  if (!isPasswordMatch) {
+    throw new Unauthorized("Password does not match")
+  }
+  const token = user.createJWT()
+  res.status(200).json({ user: { name: user.name }, token })
 }
 
 module.exports = { register, login }
