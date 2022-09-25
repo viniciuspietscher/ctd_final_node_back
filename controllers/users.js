@@ -12,6 +12,10 @@ const register = async (req, res) => {
   if (!password) {
     throw new BadRequestError("Please provide a password")
   }
+  const userExists = await User.findOne({ email })
+  if (userExists) {
+    throw new BadRequestError("Email already in use")
+  }
   const user = await User.create({ ...req.body })
   const token = user.createJWT()
   res.status(201).json({ user: { name: user.name }, token })
