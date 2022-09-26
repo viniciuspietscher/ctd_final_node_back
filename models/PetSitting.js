@@ -3,6 +3,10 @@ const PetSchema = require("./Pet")
 const Pet = require("./Pet")
 
 const PetSittingSchema = new mongoose.Schema({
+  sitterId: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: [true, "Provide a name"],

@@ -4,6 +4,7 @@ const express = require("express")
 const app = express()
 const db = require("./database/connect")
 const errorHandlerMiddleware = require("./middleware/error-handler")
+const authenticateUser = require("./middleware/authentication")
 const PORT = process.env.PORT || 5000
 
 // routers
@@ -17,7 +18,7 @@ app.use(express.json())
 // })
 
 app.use("/api/v1/user", userRouter)
-app.use("/api/v1/petsitting", petSittingRouter)
+app.use("/api/v1/petsitting", authenticateUser, petSittingRouter)
 
 app.use(errorHandlerMiddleware)
 
