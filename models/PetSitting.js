@@ -1,12 +1,6 @@
 const mongoose = require("mongoose")
+const PetSchema = require("./Pet")
 const Pet = require("./Pet")
-
-// const Pet = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     required: [true, "Provide pet name"],
-//   },
-// })
 
 const PetSittingSchema = new mongoose.Schema({
   name: {
@@ -42,9 +36,11 @@ const PetSittingSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Provide a number of visits"],
   },
-  pets: {
-    type: [Pet],
-  },
+  pets: [
+    {
+      type: PetSchema,
+    },
+  ],
 })
 
 module.exports = mongoose.model("PetSitting", PetSittingSchema)

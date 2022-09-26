@@ -15,7 +15,8 @@ const newPetSitting = async (req, res) => {
   ) {
     throw new BadRequestError("missing body argument")
   }
-  res.status(200).json({ msg: req.body })
+  const petSittingEvent = await PetSitting.create({ ...req.body })
+  res.status(201).json({ petsitting: petSittingEvent })
 }
 
 module.exports = { newPetSitting }

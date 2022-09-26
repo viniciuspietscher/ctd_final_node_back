@@ -5,7 +5,7 @@ const PetSchema = new mongoose.Schema({
     type: String,
     required: [true, "Provide a name"],
     trim: true,
-    minLength: 3,
+    minLength: 2,
     maxLength: 100,
   },
   petType: {
@@ -24,6 +24,7 @@ const PetSchema = new mongoose.Schema({
   },
   notes: {
     type: String,
+    default: "",
   },
 })
 
