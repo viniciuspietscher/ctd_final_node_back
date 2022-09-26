@@ -58,16 +58,8 @@ const addPetWalk = async (req, res) => {
     {
       $push: {
         petWalk: {
-          starttime,
-          endtime,
-          uuid: uuid,
-          walknotes,
-          pee,
-          poop,
-          food,
-          water,
-          medicine,
-          pictures,
+          ...req.body,
+          uuid,
         },
       },
     }
