@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const PetSchema = require("./Pet")
-const Pet = require("./Pet")
+const PetWalkSchema = require("./PetWalk")
 
 const PetSittingSchema = new mongoose.Schema({
   sitterId: {
@@ -43,6 +43,11 @@ const PetSittingSchema = new mongoose.Schema({
   pets: [
     {
       type: PetSchema,
+    },
+  ],
+  petWalk: [
+    {
+      type: PetWalkSchema,
     },
   ],
 })

@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require("uuid")
 const PetSitting = require("../models/PetSitting")
 const { BadRequestError } = require("../errors")
 
@@ -34,4 +35,47 @@ const getPetSitting = async (req, res) => {
   res.status(200).json({ petSittingEvent })
 }
 
-module.exports = { newPetSitting, getPetSitting }
+const addPetWalk = async (req, res) => {
+  const {
+    petSittingId,
+    starttime,
+    endtime,
+    walknotes,
+    pee,
+    poop,
+    food,
+    water,
+    medicine,
+    pictures,
+  } = req.body
+  if (!petSittingId) {
+    throw new BadRequestError("Provide pet sitting id")
+  }
+
+  const uuid = uuidv4()
+  const petSittingEvent = await PetSitting.findByIdAndUpdate(
+    req.body.petSittingId,
+    {
+      $push: {
+        petWalk: {
+          starttime,
+          endtime,
+          uuid: uuid,
+          walknotes,
+          pee,
+          poop,
+          food,
+          water,
+          medicine,
+          pictures,
+        },
+      },
+    }
+  )
+  if (!petSittingEvent) {
+    throw new BadRequestError("Invalid Pet sitting id")
+  }
+  res.status(201).json({ petSittingEvent })
+}
+
+module.exports = { newPetSitting, getPetSitting, addPetWalk }
