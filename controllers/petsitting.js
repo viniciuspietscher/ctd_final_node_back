@@ -1,11 +1,11 @@
 const { v4: uuidv4 } = require("uuid")
 const PetSitting = require("../models/PetSitting")
+const PetWalk = require("../models/PetWalk")
 const { BadRequestError } = require("../errors")
 
 const newPetSitting = async (req, res) => {
   const { name, email, address, startdate, enddate, numvisitsperday, pets } =
     req.body
-  // console.log(req.user.userId)
   if (
     !name ||
     !email ||
@@ -36,38 +36,42 @@ const getPetSitting = async (req, res) => {
 }
 
 const addPetWalk = async (req, res) => {
-  const {
-    petSittingId,
-    starttime,
-    endtime,
-    walknotes,
-    pee,
-    poop,
-    food,
-    water,
-    medicine,
-    pictures,
-  } = req.body
+  const { petSittingId } = req.body
   if (!petSittingId) {
     throw new BadRequestError("Provide pet sitting id")
   }
 
-  const uuid = uuidv4()
-  const petSittingEvent = await PetSitting.findByIdAndUpdate(
-    req.body.petSittingId,
-    {
-      $push: {
-        petWalk: {
-          ...req.body,
-          uuid,
-        },
-      },
-    }
-  )
+  const petSittingEvent = await PetSitting.findById(petSittingId)
+
   if (!petSittingEvent) {
     throw new BadRequestError("Invalid Pet sitting id")
   }
-  res.status(201).json({ petSittingEvent })
+
+  if (!req.user.userId === petSittingEvent.sitterId) {
+    throw new BadRequestError(
+      "Current user does not match sitting event sitter"
+    )
+  }
+
+  const uuid = uuidv4()
+  const petWalkEvent = await PetWalk.create({
+    ...req.body,
+    uuid,
+    petSittingEvent,
+  })
+
+  // const petSittingEvent = await PetSitting.findByIdAndUpdate(
+  //   req.body.petSittingId,
+  //   {
+  //     $push: {
+  //       petWalk: {
+  //         ...req.body,
+  //         uuid,
+  //       },
+  //     },
+  //   }
+  // )
+  res.status(200).json({ msg: petWalkEvent.uuid })
 }
 
 module.exports = { newPetSitting, getPetSitting, addPetWalk }

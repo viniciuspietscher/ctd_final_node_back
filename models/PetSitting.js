@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 const PetSchema = require("./Pet")
-const PetWalkSchema = require("./PetWalk")
 
 const PetSittingSchema = new mongoose.Schema({
   sitterId: {
@@ -24,9 +23,8 @@ const PetSittingSchema = new mongoose.Schema({
     ],
   },
   address: {
-    street: String,
-    city: String,
-    zip: String,
+    type: String,
+    required: [true, "Provide a address"],
   },
   startdate: {
     type: Date,
@@ -43,11 +41,6 @@ const PetSittingSchema = new mongoose.Schema({
   pets: [
     {
       type: PetSchema,
-    },
-  ],
-  petWalk: [
-    {
-      type: PetWalkSchema,
     },
   ],
 })

@@ -1,6 +1,10 @@
 const mongoose = require("mongoose")
 
 const PetWalkSchema = new mongoose.Schema({
+  petSittingEvent: {
+    type: mongoose.Types.ObjectId,
+    ref: "PetSittingSchema",
+  },
   date: {
     type: Date,
   },
@@ -39,4 +43,4 @@ const PetWalkSchema = new mongoose.Schema({
   },
 })
 
-module.exports = PetWalkSchema
+module.exports = mongoose.model("PetWalk", PetWalkSchema)
