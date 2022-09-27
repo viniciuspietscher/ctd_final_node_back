@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 5000
 // routers
 const userRouter = require("./routes/user")
 const petSittingRouter = require("./routes/petsitting")
+// Customer
+const customerRouter = require("./routes/customer")
 
 app.use(express.json())
 
@@ -19,6 +21,7 @@ app.use(express.json())
 
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/petsitting", authenticateUser, petSittingRouter)
+app.use("/api/v1/customer", customerRouter)
 
 app.use(errorHandlerMiddleware)
 
