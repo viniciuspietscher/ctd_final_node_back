@@ -1,6 +1,8 @@
 const User = require("../models/User")
 const { BadRequestError, Unauthorized } = require("../errors")
 
+// POST
+// api/v1/user/register
 const register = async (req, res) => {
   const { name, email, password } = req.body
   if (!name) {
@@ -21,6 +23,8 @@ const register = async (req, res) => {
   res.status(201).json({ user: { name: user.name }, token })
 }
 
+// POST
+// api/v1/user/login
 const login = async (req, res) => {
   const { email, password } = req.body
   if (!email && !password) {
