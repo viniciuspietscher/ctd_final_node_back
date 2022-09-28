@@ -17,9 +17,9 @@ const customerRouter = require("./routes/customer")
 
 app.use(express.json())
 
-// app.get("/", (req, res) => {
-//   res.send("hello")
-// })
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "hello" })
+})
 
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/petsitting", authenticateUser, petSittingRouter)
