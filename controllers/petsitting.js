@@ -4,10 +4,19 @@ const PetWalk = require("../models/PetWalk")
 const { BadRequestError } = require("../errors")
 
 const newPetSitting = async (req, res) => {
-  const { name, email, address, startdate, enddate, numvisitsperday, pets } =
-    req.body
+  const {
+    name,
+    phone,
+    email,
+    address,
+    startdate,
+    enddate,
+    numvisitsperday,
+    pets,
+  } = req.body
   if (
     !name ||
+    !phone ||
     !email ||
     !address ||
     !startdate ||

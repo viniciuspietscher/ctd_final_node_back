@@ -13,6 +13,12 @@ const PetSittingSchema = new mongoose.Schema({
     minLength: 3,
     maxLength: 100,
   },
+  phone: {
+    type: String,
+    required: [true, "Provide a phone"],
+    trim: true,
+    minLength: 10,
+  },
   email: {
     type: String,
     lowercase: true,
