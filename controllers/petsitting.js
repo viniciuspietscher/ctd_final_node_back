@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid")
 const PetSitting = require("../models/PetSitting")
 const PetWalk = require("../models/PetWalk")
-const { BadRequestError } = require("../errors")
+const { BadRequestError, Unauthorized } = require("../errors")
 
 const newPetSitting = async (req, res) => {
   const {
@@ -44,6 +44,20 @@ const getPetSitting = async (req, res) => {
   res.status(200).json({ petSittingEvent })
 }
 
+const getPetSittingById = async (req, res) => {
+  if (!req.params.id) {
+    throw new BadRequestError("Provide pet sitting id")
+  }
+  const petSittingEvent = await PetSitting.findById(req.params.id)
+  if (!petSittingEvent) {
+    throw new BadRequestError("Invalid Pet sitting id")
+  }
+  if (petSittingEvent.sitterId !== req.user.userId) {
+    throw new Unauthorized("Invalid user")
+  }
+  res.status(200).json(petSittingEvent)
+}
+
 const addPetWalk = async (req, res) => {
   const { petSittingId } = req.body
   if (!petSittingId) {
@@ -83,4 +97,4 @@ const addPetWalk = async (req, res) => {
   res.status(200).json({ msg: petWalkEvent.uuid })
 }
 
-module.exports = { newPetSitting, getPetSitting, addPetWalk }
+module.exports = { newPetSitting, getPetSitting, getPetSittingById, addPetWalk }
