@@ -22,7 +22,6 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/v1/user", userRouter)
-app.options("*", cors())
 app.use("/api/v1/petsitting", authenticateUser, petSittingRouter)
 app.use("/api/v1/customer", customerRouter)
 
