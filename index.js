@@ -8,7 +8,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler")
 const authenticateUser = require("./middleware/authentication")
 const PORT = process.env.PORT || 5000
 
-app.use(cors({ origin: "*" }))
+app.use(cors())
 // routers
 const userRouter = require("./routes/user")
 const petSittingRouter = require("./routes/petsitting")
