@@ -83,18 +83,9 @@ const addPetWalk = async (req, res) => {
     petSittingEvent,
   })
 
-  // const petSittingEvent = await PetSitting.findByIdAndUpdate(
-  //   req.body.petSittingId,
-  //   {
-  //     $push: {
-  //       petWalk: {
-  //         ...req.body,
-  //         uuid,
-  //       },
-  //     },
-  //   }
-  // )
-  res.status(200).json({ msg: petWalkEvent.uuid })
+  res.status(200).json({
+    uuid: petWalkEvent.uuid,
+  })
 }
 
 module.exports = { newPetSitting, getPetSitting, getPetSittingById, addPetWalk }
